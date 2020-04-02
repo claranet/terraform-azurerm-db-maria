@@ -1,58 +1,37 @@
 resource "azurerm_mariadb_server" "mariadb_server" {
-  name                         = "${local.server_name}"
-  location                     = "${var.location}"
-  resource_group_name          = "${var.resource_group_name}"
-  sku                          = ["${var.server_sku}"]
-  storage_profile              = ["${var.server_storage_profile}"]
-  administrator_login          = "${var.sql_user}"
-  administrator_login_password = "${var.sql_pass}"
-  version                      = "${var.mariadb_version}"
-  ssl_enforcement              = "${var.mariadb_ssl_enforcement}"
-  tags                         = "${merge(local.default_tags, var.extra_tags)}"
+  name                = coalesce(var.custom_server_name, local.server_name)
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  sku_name = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Gen5", var.capacity])
+
+  storage_profile {
+    storage_mb            = lookup(var.server_storage_profile, "storage_mb", null)
+    backup_retention_days = lookup(var.server_storage_profile, "backup_retention_days", null)
+    geo_redundant_backup  = lookup(var.server_storage_profile, "geo_redundant_backup", null)
+    auto_grow             = lookup(var.server_storage_profile, "auto_grow", null)
+  }
+
+  administrator_login          = var.administrator_login
+  administrator_login_password = var.administrator_password
+  version                      = var.mariadb_version
+  ssl_enforcement              = var.force_ssl ? "Enabled" : "Disabled"
+  tags                         = merge(local.default_tags, var.extra_tags)
 }
 
 resource "azurerm_mariadb_database" "mariadb_db" {
-  charset             = "${lookup(var.db_charset, element(var.db_names, count.index))}"
-  collation           = "${lookup(var.db_collation, element(var.db_names, count.index))}"
-  name                = "${element(var.db_names, count.index)}"
-  resource_group_name = "${var.resource_group_name}"
-  server_name         = "${azurerm_mariadb_server.mariadb_server.name}"
-  count               = "${length(var.db_names)}"
+  for_each            = toset(var.databases_names)
+  name                = each.value
+  resource_group_name = var.resource_group_name
+  server_name         = azurerm_mariadb_server.mariadb_server.name
+  charset             = lookup(var.databases_charset, each.value, "UTF8")
+  collation           = lookup(var.databases_collation, each.value, "en-US")
 }
 
-data "azurerm_subscription" "current" {}
-
-resource "null_resource" "db_firewall_rule" {
-  count = "${var.include_firewall_rule ? 1 : 0}"
-
-  provisioner "local-exec" {
-    command = <<CMD
-        az account set -s ${data.azurerm_subscription.current.subscription_id}
-        az mariadb server firewall-rule create \
-	  --name ${lookup(var.firewall_rule,"rule_name")} \
-	  --resource-group ${var.resource_group_name} \
-	  --server-name ${local.server_name} \
-	  --start-ip-address ${lookup(var.firewall_rule,"start-ip-address")} \
-	  --end-ip-address ${lookup(var.firewall_rule,"end-ip-address")}
-    CMD
-  }
-
-  depends_on = ["azurerm_mariadb_database.mariadb_db"]
-}
-
-resource "null_resource" "db_vnet_rule" {
-  count = "${var.include_vnet_rule ? 1 : 0}"
-
-  provisioner "local-exec" {
-    command = <<CMD
-        az account set -s ${data.azurerm_subscription.current.subscription_id}
-        az mariadb server vnet-rule create \
-	  --name ${lookup(var.vnet_rule,"rule_name")} \
-	  --resource-group ${var.resource_group_name} \
-	  --server-name ${local.server_name} \
-	  --subnet ${lookup(var.vnet_rule,"subnet")}
-    CMD
-  }
-
-  depends_on = ["azurerm_mariadb_database.mariadb_db"]
+resource "azurerm_mariadb_configuration" "mariadb_config" {
+  for_each            = var.mariadb_configurations
+  name                = each.key
+  resource_group_name = var.resource_group_name
+  server_name         = azurerm_mariadb_server.mariadb_server.name
+  value               = each.value
 }

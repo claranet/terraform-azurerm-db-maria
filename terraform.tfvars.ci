@@ -5,31 +5,28 @@ stack="ci"
 client_name="test"
 resource_group_name="rg-test"
 custom_server_name="maria-test"
-sql_pass="FGFSxdcd4657-vdS"
-sql_user="test"
-db_names=["bdd1","bdd2"]
+administrator_password="FGFSxdcd4657-vdS"
+administrator_login="test"
+databases_names=["bdd1","bdd2"]
 extra_tags = {
   foo = "bar"
 }
-db_collation={
+databases_collation={
   "bdd1" = "utf8_general_ci"
   "bdd2" = "utf8_general_ci"
 }
-db_charset={
+databases_charset={
   "bdd1" = "utf8"
   "bdd2" = "utf8"
 }
 
-include_firewall_rule  = "true"
-firewall_rule = {
+authorized_cidrs = {
   rule_name = "claranet_vpn"
   start-ip-address = "185.88.104.18"
   end-ip-address = "185.88.104.18"
 }
 
-include_vnet_rule  = "false"
 vnet_rule = {
-  rule_name   = "claranet_vpn"
-  subnet      = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1"
+  "claranet_vpn"      = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1"
 }
 
