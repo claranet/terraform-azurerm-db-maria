@@ -1,5 +1,5 @@
 # Azure Mariadb
-[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/windows-vm/azurerm/)
+[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/db-maria/azurerm/)
 
 This module creates a [MariaDB Server](https://docs.microsoft.com/en-us/azure/mariadb/) with one or several databases.
 
@@ -38,7 +38,7 @@ module "rg" {
 }
 
 module "db-maria" {
-  source  = "claranet/db-mariadb/azurerm"
+  source  = "claranet/db-maria/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
@@ -87,8 +87,8 @@ module "db-maria" {
 | capacity | Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
 | client\_name | Name of client | `string` | n/a | yes |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
-| databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | n/a | yes |
-| databases\_collation | Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | n/a | yes |
+| databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
+| databases\_collation | Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
 | databases\_names | List of databases names | `list(string)` | n/a | yes |
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
@@ -97,7 +97,7 @@ module "db-maria" {
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | mariadb\_configurations | MariaDB configurations to enable | `map(string)` | `{}` | no |
 | mariadb\_version | Specifies the version of MariaDB to use. Possible values are 10.2 and 10.3 | `string` | `"10.2"` | no |
-| name\_prefix | Optional prefix for PostgreSQL server name | `string` | `""` | no |
+| name\_prefix | Optional prefix for MariaDB server name | `string` | `""` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | server\_storage\_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#storage_profile | `map(string)` | <pre>{<br>  "auto_grow": "Disabled",<br>  "backup_retention_days": 10,<br>  "geo_redundant_backup": "Disabled",<br>  "storage_mb": 5120<br>}</pre> | no |
 | stack | Name of application stack | `string` | n/a | yes |

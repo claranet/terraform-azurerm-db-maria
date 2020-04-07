@@ -29,7 +29,7 @@ variable "location_short" {
 }
 
 variable "name_prefix" {
-  description = "Optional prefix for PostgreSQL server name"
+  description = "Optional prefix for MariaDB server name"
   type        = string
   default     = ""
 }
@@ -104,11 +104,13 @@ variable "force_ssl" {
 variable "databases_charset" {
   description = "Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
   type        = map(string)
+  default     = {}
 }
 
 variable "databases_collation" {
   description = "Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
   type        = map(string)
+  default     = {}
 }
 
 variable "vnet_rules" {
