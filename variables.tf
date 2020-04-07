@@ -57,33 +57,31 @@ variable "extra_tags" {
 }
 
 variable "authorized_cidrs" {
-  type        = map(string)
   description = "Map of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state"
+  type        = map(string)
 }
 
 variable "tier" {
-  type        = string
   description = "Tier for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: GeneralPurpose, Basic, MemoryOptimized"
+  type        = string
   default     = "GeneralPurpose"
 }
 
 variable "capacity" {
-  type        = number
   description = "Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name"
+  type        = number
   default     = 4
 }
 
 variable "server_storage_profile" {
-  type = map(string)
-
+  description = "Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#storage_profile"
+  type        = map(string)
   default = {
     storage_mb            = 5120
     backup_retention_days = 10
     geo_redundant_backup  = "Disabled"
     auto_grow             = "Disabled"
   }
-
-  description = "Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#storage_profile"
 }
 
 variable "databases_names" {
@@ -92,34 +90,35 @@ variable "databases_names" {
 }
 
 variable "mariadb_version" {
-  default     = "10.2"
   description = "Specifies the version of MariaDB to use. Possible values are 10.2 and 10.3"
+  type        = string
+  default     = "10.2"
 }
 
 variable "force_ssl" {
+  description = "Force usage of SSL"
   type        = bool
   default     = true
-  description = "Force usage of SSL"
 }
 
 variable "databases_charset" {
-  type        = map(string)
   description = "Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
+  type        = map(string)
 }
 
 variable "databases_collation" {
-  type        = map(string)
   description = "Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
+  type        = map(string)
 }
 
 variable "vnet_rules" {
-  type        = map(string)
   description = "Map of vnet rules to create"
+  type        = map(string)
   default     = {}
 }
 
 variable "mariadb_configurations" {
+  description = "MariaDB configurations to enable"
   type        = map(string)
   default     = {}
-  description = "MariaDB configurations to enable"
 }

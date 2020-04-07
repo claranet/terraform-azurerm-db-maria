@@ -1,12 +1,9 @@
 # Azure Mariadb
+[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/windows-vm/azurerm/)
 
-This feature generates a mariadb server with one or several databases. 
+This module creates a [MariaDB Server](https://docs.microsoft.com/en-us/azure/mariadb/) with one or several databases.
 
-## Requirements
-
-* [AzureRM Terraform provider](https://www.terraform.io/docs/providers/azurerm/) >= 1.31
-
-## Terraform version compatibility
+## Version compatibility
  
 | Module version    | Terraform version | AzureRM version |
 |-------------------|-------------------|-----------------|
