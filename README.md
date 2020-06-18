@@ -7,7 +7,7 @@ This module creates a [MariaDB Server](https://docs.microsoft.com/en-us/azure/ma
  
 | Module version    | Terraform version | AzureRM version |
 |-------------------|-------------------|-----------------|
-| >= 3.x.x          | 0.12.x            | >= 2.0          |
+| >= 3.x.x          | 0.12.x            | >= 2.10         |
 | >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
 | <  2.x.x          | 0.11.x            | <  2.0          |
 
