@@ -56,12 +56,10 @@ module "db-maria" {
     rule2 = "12.34.56.78/32"
   }
 
-  server_storage_profile = {
-    storage_mb            = 5120
-    backup_retention_days = 10
-    geo_redundant_backup  = "Enabled"
-    auto_grow             = "Disabled"
-  }
+  storage_mb                    = 5120
+  backup_retention_days         = 10
+  geo_redundant_backup_enabled  = true
+  auto_grow_enabled             = false
 
   administrator_login    = var.administrator_login
   administrator_password = var.administrator_password
