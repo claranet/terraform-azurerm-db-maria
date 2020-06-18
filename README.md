@@ -116,3 +116,11 @@ module "db-maria" {
 | mariadb\_fqdn | FQDN of the mariadb server |
 | mariadb\_server\_id | mariadb server ID |
 | mariadb\_vnet\_rules | The map of all vnet rules |
+
+## Related documentation
+
+Terraform Azure MariaDB Server documentation: [www.terraform.io/docs/providers/azurerm/r/mariadb_server.html](https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html)
+
+Terraform Azure MariaDB Database documentation: [www.terraform.io/docs/providers/azurerm/r/mariadb_database.html](https://www.terraform.io/docs/providers/azurerm/r/mariadb_database.html)
+
+Microsoft Azure documentation: [docs.microsoft.com/fr-fr/azure/mariadb/overview](https://docs.microsoft.com/fr-fr/azure/mariadb/overview)
