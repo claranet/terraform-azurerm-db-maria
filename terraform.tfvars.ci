@@ -1,0 +1,32 @@
+location="fr-central"
+location_short="frc"
+environment="test"
+stack="ci"
+client_name="test"
+resource_group_name="rg-test"
+custom_server_name="maria-test"
+administrator_password="FGFSxdcd4657-vdS"
+administrator_login="test"
+databases_names=["bdd1","bdd2"]
+extra_tags = {
+  foo = "bar"
+}
+databases_collation={
+  "bdd1" = "utf8_general_ci"
+  "bdd2" = "utf8_general_ci"
+}
+databases_charset={
+  "bdd1" = "utf8"
+  "bdd2" = "utf8"
+}
+
+authorized_cidrs = {
+  rule_name = "claranet_vpn"
+  start-ip-address = "185.88.104.18"
+  end-ip-address = "185.88.104.18"
+}
+
+vnet_rule = {
+  "claranet_vpn"      = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1"
+}
+
