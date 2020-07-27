@@ -56,12 +56,10 @@ module "db-maria" {
     rule2 = "12.34.56.78/32"
   }
 
-  server_storage_profile = {
-    storage_mb            = 5120
-    backup_retention_days = 10
-    geo_redundant_backup  = "Enabled"
-    auto_grow             = "Disabled"
-  }
+  storage_mb                    = 5120
+  backup_retention_days         = 10
+  geo_redundant_backup_enabled  = true
+  auto_grow_enabled             = false
 
   administrator_login    = var.administrator_login
   administrator_password = var.administrator_password
@@ -84,6 +82,8 @@ module "db-maria" {
 | administrator\_login | MariaDB administrator login | `string` | n/a | yes |
 | administrator\_password | MariaDB administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | n/a | yes |
 | authorized\_cidrs | Map of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | `map(string)` | n/a | yes |
+| auto\_grow\_enabled | Enable/Disable auto-growing of the storage. | `bool` | `false` | no |
+| backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
 | client\_name | Name of client | `string` | n/a | yes |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
@@ -93,14 +93,15 @@ module "db-maria" {
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | force\_ssl | Force usage of SSL | `bool` | `true` | no |
+| geo\_redundant\_backup\_enabled | Turn Geo-redundant server backups on/off. Not available for the Basic tier. | `bool` | `true` | no |
 | location | Azure location for Key Vault. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | mariadb\_configurations | MariaDB configurations to enable | `map(string)` | `{}` | no |
 | mariadb\_version | Specifies the version of MariaDB to use. Possible values are 10.2 and 10.3 | `string` | `"10.2"` | no |
 | name\_prefix | Optional prefix for MariaDB server name | `string` | `""` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
-| server\_storage\_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#storage_profile | `map(string)` | <pre>{<br>  "auto_grow": "Disabled",<br>  "backup_retention_days": 10,<br>  "geo_redundant_backup": "Disabled",<br>  "storage_mb": 5120<br>}</pre> | no |
 | stack | Name of application stack | `string` | n/a | yes |
+| storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |
 | tier | Tier for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: GeneralPurpose, Basic, MemoryOptimized | `string` | `"GeneralPurpose"` | no |
 | vnet\_rules | Map of vnet rules to create | `map(string)` | `{}` | no |
 
