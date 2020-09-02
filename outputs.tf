@@ -4,6 +4,12 @@ output "mariadb_administrator_login" {
   sensitive   = true
 }
 
+output "mariadb_administrator_password" {
+  value       = local.administrator_password
+  description = "Administrator password for mariadb server"
+  sensitive   = true
+}
+
 output "mariadb_databases_names" {
   value       = azurerm_mariadb_database.mariadb_db
   description = "Map of databases names"

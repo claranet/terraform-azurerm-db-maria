@@ -102,6 +102,8 @@ module "db_maria" {
 |------|---------|
 | azurecaf | ~> 1.1 |
 | azurerm | ~> 2.10 |
+| mysql.create-users | >= 1.6 |
+| random | n/a |
 
 ## Modules
 
@@ -120,24 +122,32 @@ module "db_maria" {
 | [azurerm_mariadb_firewall_rule.mariadb_fw_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_firewall_rule) | resource |
 | [azurerm_mariadb_server.mariadb_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_server) | resource |
 | [azurerm_mariadb_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_virtual_network_rule) | resource |
+| [mysql_grant.roles](https://registry.terraform.io/providers/terraform-providers/mysql/latest/docs/resources/grant) | resource |
+| [mysql_user.users](https://registry.terraform.io/providers/terraform-providers/mysql/latest/docs/resources/user) | resource |
+| [random_password.db_passwords](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
+| [random_password.mariadb_administrator_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| administrator\_login | MariaDB administrator login | `string` | n/a | yes |
-| administrator\_password | MariaDB administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | n/a | yes |
+| administrator\_login | MariaDB administrator login | `string` | `"dbadmin"` | no |
+| administrator\_password | MariaDB administrator password. Auto-generated if empty. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | `""` | no |
 | authorized\_cidrs | Map of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | `map(string)` | n/a | yes |
 | auto\_grow\_enabled | Enable/Disable auto-growing of the storage. | `bool` | `false` | no |
 | backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
 | client\_name | Name of client | `string` | n/a | yes |
+| create\_databases\_users | True to create a user named <db>(\_user) per database with generated password. | `bool` | `true` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
 | databases\_collation | Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
 | databases\_names | List of databases names | `list(string)` | n/a | yes |
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
+| enable\_logs\_to\_log\_analytics | Boolean flag to specify whether the logs should be sent to Log Analytics | `bool` | `false` | no |
+| enable\_logs\_to\_storage | Boolean flag to specify whether the logs should be sent to the Storage Account | `bool` | `false` | no |
+| enable\_user\_suffix | True to append a \_user suffix to database users | `bool` | `false` | no |
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | force\_ssl | Force usage of SSL | `bool` | `true` | no |
@@ -146,8 +156,11 @@ module "db_maria" {
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
+| logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs | `string` | `""` | no |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
+| logs\_storage\_account\_id | Storage Account id for logs | `string` | `""` | no |
+| logs\_storage\_retention | Retention in days for logs on Storage Account | `string` | `"30"` | no |
 | mariadb\_configurations | MariaDB configurations to enable | `map(string)` | `{}` | no |
 | mariadb\_version | Specifies the version of MariaDB to use. Possible values are 10.2 and 10.3 | `string` | `"10.2"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
@@ -165,6 +178,7 @@ module "db_maria" {
 | Name | Description |
 |------|-------------|
 | mariadb\_administrator\_login | Administrator login for mariadb server |
+| mariadb\_administrator\_password | Administrator password for mariadb server |
 | mariadb\_configurations | The map of all mariadb configurations set |
 | mariadb\_database\_ids | The map of all database resource ids |
 | mariadb\_databases\_names | Map of databases names |

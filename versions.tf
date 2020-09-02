@@ -9,5 +9,9 @@ terraform {
       source  = "aztfmod/azurecaf"
       version = "~> 1.1"
     }
+    mysql = {
+      source  = "terraform-providers/mysql"
+      version = ">= 1.6"
+    }
   }
 }
