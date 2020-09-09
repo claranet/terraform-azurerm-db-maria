@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 2.10"
+      version = ">= 2.10"
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
@@ -12,6 +12,9 @@ terraform {
     mysql = {
       source  = "terraform-providers/mysql"
       version = ">= 1.6"
+    }
+    random = {
+      source = "hashicorp/random"
     }
   }
 }

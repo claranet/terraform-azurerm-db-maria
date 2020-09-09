@@ -142,8 +142,8 @@ variable "enable_logs_to_log_analytics" {
 
 variable "logs_storage_retention" {
   description = "Retention in days for logs on Storage Account"
-  type        = string
-  default     = "30"
+  type        = number
+  default     = 30
 }
 
 variable "logs_storage_account_id" {

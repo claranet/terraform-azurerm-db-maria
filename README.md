@@ -101,7 +101,7 @@ module "db_maria" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | ~> 2.10 |
+| azurerm | >= 2.10 |
 | mysql.create-users | >= 1.6 |
 | random | n/a |
 
@@ -160,7 +160,7 @@ module "db_maria" {
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
 | logs\_storage\_account\_id | Storage Account id for logs | `string` | `""` | no |
-| logs\_storage\_retention | Retention in days for logs on Storage Account | `string` | `"30"` | no |
+| logs\_storage\_retention | Retention in days for logs on Storage Account | `number` | `30` | no |
 | mariadb\_configurations | MariaDB configurations to enable | `map(string)` | `{}` | no |
 | mariadb\_version | Specifies the version of MariaDB to use. Possible values are 10.2 and 10.3 | `string` | `"10.2"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
@@ -180,8 +180,10 @@ module "db_maria" {
 | mariadb\_administrator\_login | Administrator login for mariadb server |
 | mariadb\_administrator\_password | Administrator password for mariadb server |
 | mariadb\_configurations | The map of all mariadb configurations set |
-| mariadb\_database\_ids | The map of all database resource ids |
-| mariadb\_databases\_names | Map of databases names |
+| mariadb\_database\_ids | List of all database resource ids |
+| mariadb\_databases\_names | List of databases names |
+| mariadb\_databases\_users | List of usernames of created users corresponding to input databases names. |
+| mariadb\_databases\_users\_passwords | List of passwords of created users corresponding to input databases names. |
 | mariadb\_firewall\_rules | Map of mariadb created rules |
 | mariadb\_fqdn | FQDN of the mariadb server |
 | mariadb\_server\_id | mariadb server ID |

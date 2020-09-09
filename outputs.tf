@@ -11,13 +11,13 @@ output "mariadb_administrator_password" {
 }
 
 output "mariadb_databases_names" {
-  value       = azurerm_mariadb_database.mariadb_db
-  description = "Map of databases names"
+  value       = var.databases_names
+  description = "List of databases names"
 }
 
 output "mariadb_database_ids" {
-  description = "The map of all database resource ids"
-  value       = azurerm_mariadb_database.mariadb_db
+  description = "List of all database resource ids"
+  value       = [for db in azurerm_mariadb_database.mariadb_db : db.id]
 }
 
 output "mariadb_firewall_rules" {
