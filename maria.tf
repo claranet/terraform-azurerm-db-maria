@@ -1,5 +1,5 @@
 resource "azurerm_mariadb_server" "mariadb_server" {
-  name                = coalesce(var.custom_server_name, local.server_name)
+  name                = local.server_name
   location            = var.location
   resource_group_name = var.resource_group_name
 
