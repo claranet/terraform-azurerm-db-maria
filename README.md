@@ -101,7 +101,7 @@ module "db_maria" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.10 |
+| azurerm | >= 2.42 |
 | random | >= 1.9 |
 
 ## Modules
