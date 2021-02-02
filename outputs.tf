@@ -40,16 +40,15 @@ output "mariadb_vnet_rules" {
   description = "The map of all vnet rules"
 }
 
+
 output "mariadb_databases_users" {
-  description = "List of usernames of created users corresponding to input databases names."
-  value       = local.db_users_login
-  sensitive   = true
+  value = toset([for u in module.users : u.user])
 }
 
-output "mariadb_databases_users_passwords" {
-  description = "List of passwords of created users corresponding to input databases names."
-  value       = random_password.db_passwords[*].result
-  sensitive   = true
+output "mariadb_databases_user_passwords" {
+  value = tomap({
+    for k, u in module.users : u.user => u.password
+  })
 }
 
 output "mariadb_configurations" {

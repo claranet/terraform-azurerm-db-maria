@@ -102,14 +102,14 @@ module "db_maria" {
 |------|---------|
 | azurecaf | ~> 1.1 |
 | azurerm | >= 2.10 |
-| mysql.create-users | >= 1.6 |
-| random | n/a |
+| random | >= 1.9 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
+| users | ./modules/db-users | n/a |
 
 ## Resources
 
@@ -122,9 +122,6 @@ module "db_maria" {
 | [azurerm_mariadb_firewall_rule.mariadb_fw_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_firewall_rule) | resource |
 | [azurerm_mariadb_server.mariadb_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_server) | resource |
 | [azurerm_mariadb_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_virtual_network_rule) | resource |
-| [mysql_grant.roles](https://registry.terraform.io/providers/terraform-providers/mysql/latest/docs/resources/grant) | resource |
-| [mysql_user.users](https://registry.terraform.io/providers/terraform-providers/mysql/latest/docs/resources/user) | resource |
-| [random_password.db_passwords](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [random_password.mariadb_administrator_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
@@ -182,8 +179,8 @@ module "db_maria" {
 | mariadb\_configurations | The map of all mariadb configurations set |
 | mariadb\_database\_ids | List of all database resource ids |
 | mariadb\_databases\_names | List of databases names |
-| mariadb\_databases\_users | List of usernames of created users corresponding to input databases names. |
-| mariadb\_databases\_users\_passwords | List of passwords of created users corresponding to input databases names. |
+| mariadb\_databases\_user\_passwords | n/a |
+| mariadb\_databases\_users | n/a |
 | mariadb\_firewall\_rules | Map of mariadb created rules |
 | mariadb\_fqdn | FQDN of the mariadb server |
 | mariadb\_server\_id | mariadb server ID |
