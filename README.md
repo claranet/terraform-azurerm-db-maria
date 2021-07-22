@@ -51,7 +51,7 @@ module "db-maria" {
   tier     = "GeneralPurpose"
   capacity = 4
 
-  allowed_cidrs = {
+  authorized_cidrs = {
     rule1 = "10.0.0.0/24",
     rule2 = "12.34.56.78/32"
   }
@@ -67,8 +67,8 @@ module "db-maria" {
   force_ssl = true
 
   databases_names     = ["mydatabase"]
-  databases_collation = { mydatabase = "en_US" }
-  databases_charset   = { mydatabase = "UTF8" }
+  databases_collation = { mydatabase = "utf8_general_ci" }
+  databases_charset   = { mydatabase = "utf8" }
 
   extra_tags = var.extra_tags 
 }
