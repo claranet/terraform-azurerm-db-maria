@@ -6,7 +6,8 @@ This module creates a [MariaDB Server](https://docs.microsoft.com/en-us/azure/ma
 ## Version compatibility
 
 | Module version | Terraform version | AzureRM version |
-|----------------|-------------------| --------------- |
+| -------------- | ----------------- | --------------- |
+| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.0          |
 | >= 4.x.x       | 0.13.x            | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
@@ -75,6 +76,27 @@ module "db-maria" {
 
 ```
 
+<!-- BEGIN_TF_DOCS -->
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurerm | >= 2.10 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_mariadb_configuration.mariadb_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_configuration) | resource |
+| [azurerm_mariadb_database.mariadb_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_database) | resource |
+| [azurerm_mariadb_firewall_rule.mariadb_fw_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_firewall_rule) | resource |
+| [azurerm_mariadb_server.mariadb_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_server) | resource |
+| [azurerm_mariadb_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_virtual_network_rule) | resource |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -117,11 +139,7 @@ module "db-maria" {
 | mariadb\_fqdn | FQDN of the mariadb server |
 | mariadb\_server\_id | mariadb server ID |
 | mariadb\_vnet\_rules | The map of all vnet rules |
-
+<!-- END_TF_DOCS -->
 ## Related documentation
-
-Terraform Azure MariaDB Server documentation: [www.terraform.io/docs/providers/azurerm/r/mariadb_server.html](https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html)
-
-Terraform Azure MariaDB Database documentation: [www.terraform.io/docs/providers/azurerm/r/mariadb_database.html](https://www.terraform.io/docs/providers/azurerm/r/mariadb_database.html)
 
 Microsoft Azure documentation: [docs.microsoft.com/fr-fr/azure/mariadb/overview](https://docs.microsoft.com/fr-fr/azure/mariadb/overview)
