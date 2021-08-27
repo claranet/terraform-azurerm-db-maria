@@ -1,3 +1,9 @@
+# v4.0.1 - unreleased
+
+Changed
+  * [GITHUB-1](https://github.com/claranet/terraform-azurerm-db-maria/pull/1): Update documentation to reflect current code and Azure MariaDB allowed options.
+  * AZ-532: Revamp README with latest `terraform-docs` tool
+
 # v4.0.0 - 2021-01-18
 
 Changed
