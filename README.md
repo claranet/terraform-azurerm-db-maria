@@ -2,8 +2,9 @@
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/db-maria/azurerm/)
 
 This module creates a [MariaDB Server](https://docs.microsoft.com/en-us/azure/mariadb/) with one or several databases.
- 
-## Version compatibility
+
+<!-- BEGIN_TF_DOCS -->
+## Global versionning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
@@ -20,8 +21,7 @@ which set some terraform variables in the environment needed by this module.
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
-
-module "azure-region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -32,22 +32,23 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.azure-region.location
+  location    = module.azure_region.location
   client_name = var.client_name
   environment = var.environment
   stack       = var.stack
 }
 
-module "db-maria" {
+module "db_maria" {
   source  = "claranet/db-maria/azurerm"
   version = "x.x.x"
 
-  client_name         = var.client_name
+  client_name    = var.client_name
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  environment    = var.environment
+  stack          = var.stack
+
   resource_group_name = module.rg.resource_group_name
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
-  environment         = var.environment
-  stack               = var.stack
 
   tier     = "GeneralPurpose"
   capacity = 4
@@ -57,10 +58,10 @@ module "db-maria" {
     rule2 = "12.34.56.78/32"
   }
 
-  storage_mb                    = 5120
-  backup_retention_days         = 10
-  geo_redundant_backup_enabled  = true
-  auto_grow_enabled             = false
+  storage_mb                   = 5120
+  backup_retention_days        = 10
+  geo_redundant_backup_enabled = true
+  auto_grow_enabled            = false
 
   administrator_login    = var.administrator_login
   administrator_password = var.administrator_password
@@ -71,12 +72,13 @@ module "db-maria" {
   databases_collation = { mydatabase = "utf8_general_ci" }
   databases_charset   = { mydatabase = "utf8" }
 
-  extra_tags = var.extra_tags 
+  extra_tags = {
+    foo = "bar"
+  }
 }
 
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
