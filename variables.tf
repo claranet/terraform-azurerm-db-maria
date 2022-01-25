@@ -28,18 +28,6 @@ variable "location_short" {
   type        = string
 }
 
-variable "name_prefix" {
-  description = "Optional prefix for MariaDB server name"
-  type        = string
-  default     = ""
-}
-
-variable "custom_server_name" {
-  type        = string
-  description = "Custom Server Name identifier"
-  default     = ""
-}
-
 variable "administrator_login" {
   description = "MariaDB administrator login"
   type        = string
@@ -95,11 +83,6 @@ variable "geo_redundant_backup_enabled" {
   description = "Turn Geo-redundant server backups on/off. Not available for the Basic tier."
   type        = bool
   default     = true
-}
-
-variable "databases_names" {
-  description = "List of databases names"
-  type        = list(string)
 }
 
 variable "mariadb_version" {

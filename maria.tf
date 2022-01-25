@@ -19,7 +19,7 @@ resource "azurerm_mariadb_server" "mariadb_server" {
 
 resource "azurerm_mariadb_database" "mariadb_db" {
   for_each            = toset(var.databases_names)
-  name                = each.value
+  name                = var.use_caf_naming_for_databases ? azurecaf_name.mariadb_dbs[each.value] : each.value
   resource_group_name = var.resource_group_name
   server_name         = azurerm_mariadb_server.mariadb_server.name
   charset             = lookup(var.databases_charset, each.value, "UTF8")
