@@ -15,6 +15,18 @@ module "rg" {
   stack       = var.stack
 }
 
+module "logs" {
+  source  = "claranet/run-common/azurerm//modules/logs"
+  version = "x.x.x"
+
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  resource_group_name = module.rg.resource_group_name
+}
+
 module "db_maria" {
   source  = "claranet/db-maria/azurerm"
   version = "x.x.x"
@@ -48,6 +60,11 @@ module "db_maria" {
   databases_names     = ["mydatabase"]
   databases_collation = { mydatabase = "utf8_general_ci" }
   databases_charset   = { mydatabase = "utf8" }
+
+  logs_destinations_ids = [
+    module.logs.logs_storage_account_id,
+    module.logs.log_analytics_workspace_id
+  ]
 
   extra_tags = {
     foo = "bar"
