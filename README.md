@@ -101,7 +101,7 @@ module "db_maria" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.10 |
+| azurerm | ~> 2.10 |
 
 ## Modules
 
@@ -137,6 +137,7 @@ module "db_maria" {
 | databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
 | databases\_collation | Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
 | databases\_names | List of databases names | `list(string)` | n/a | yes |
+| default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | force\_ssl | Force usage of SSL | `bool` | `true` | no |
