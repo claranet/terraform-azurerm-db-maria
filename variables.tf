@@ -123,7 +123,7 @@ variable "create_databases_users" {
   default     = true
 }
 
-variable "enable_user_suffix" {
+variable "user_suffix_enabled" {
   description = "True to append a _user suffix to database users"
   type        = bool
   default     = false

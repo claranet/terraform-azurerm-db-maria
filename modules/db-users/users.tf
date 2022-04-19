@@ -4,17 +4,13 @@ resource "random_password" "password" {
 }
 
 resource "mysql_user" "user" {
-  # provider = mysql.create-users
-
-  user               = var.enable_user_suffix ? format("%s_user", var.user) : var.user
+  user               = var.user_suffix_enabled ? format("%s_user", var.user) : var.user
   plaintext_password = coalesce(var.password, random_password.password.result)
   host               = var.host
 }
 
 resource "mysql_grant" "role" {
-  # provider = mysql.create-users
-
-  user       = var.enable_user_suffix ? format("%s_user", var.user) : var.user
+  user       = var.user_suffix_enabled ? format("%s_user", var.user) : var.user
   host       = var.host
   database   = var.database
   privileges = var.privileges

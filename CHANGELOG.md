@@ -7,8 +7,12 @@ Breaking
 Added
   * AZ-589: Add `diagnostic settings` module (latest v5.0.0)
   * AZ-615: Add an option to enable or disable default tags
+  * AZ-262: Allow users creation that match created databases
+  * AZ-262: Bump minimum version of AzureRM provider to `v2.42`, add MySQL provider
 
 Changed
+  * AZ-262: Default administrator login `dbadmin`
+  * AZ-262: Output of DB name/id are now a list
   * AZ-572: Revamp examples and improve CI
 
 # v4.0.1 - 2021-08-27

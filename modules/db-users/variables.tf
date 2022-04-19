@@ -1,27 +1,33 @@
 variable "user" {
-  type = string
+  type        = string
+  description = "User name"
 }
 
 variable "password" {
-  type    = string
-  default = null
+  type        = string
+  default     = null
+  description = "Password if not generated"
 }
 
 variable "database" {
-  type = string
+  type        = string
+  description = "Database name"
 }
 
-variable "enable_user_suffix" {
-  type    = bool
-  default = false
+variable "user_suffix_enabled" {
+  type        = bool
+  default     = false
+  description = "Append `_user` suffix"
 }
 
 variable "host" {
-  type    = string
-  default = "%"
+  type        = string
+  default     = "%"
+  description = "User Host"
 }
 
 variable "privileges" {
-  type    = list(any)
-  default = ["ALL"]
+  type        = list(any)
+  default     = ["ALL"]
+  description = "List of privileges"
 }

@@ -9,9 +9,9 @@ provider "mysql" {
 module "users" {
   source = "./modules/db-users"
 
-  for_each = toset(var.create_databases_users ? var.databases_names : [])
+  for_each = var.create_databases_users ? toset(var.databases_names) : toset([])
 
-  enable_user_suffix = var.enable_user_suffix
-  user               = each.key
-  database           = each.key
+  user_suffix_enabled = var.user_suffix_enabled
+  user                = each.key
+  database            = each.key
 }

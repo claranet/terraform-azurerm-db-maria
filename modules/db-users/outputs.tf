@@ -1,10 +1,10 @@
 output "user" {
   value       = mysql_user.user.user
-  description = "Mysql database user"
+  description = "User"
 }
 
 output "password" {
   value       = mysql_user.user.plaintext_password
-  description = "Mysql database password"
   sensitive   = true
+  description = "Password"
 }

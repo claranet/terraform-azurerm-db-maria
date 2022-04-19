@@ -6,7 +6,7 @@
 | Name | Version |
 |------|---------|
 | mysql | >= 1.9 |
-| random | >= 1.9 |
+| random | >= 3.0 |
 
 ## Modules
 
@@ -24,17 +24,17 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| database | n/a | `string` | n/a | yes |
-| enable\_user\_suffix | n/a | `bool` | `false` | no |
-| host | n/a | `string` | `"%"` | no |
-| password | n/a | `string` | `null` | no |
-| privileges | n/a | `list(any)` | <pre>[<br>  "ALL"<br>]</pre> | no |
-| user | n/a | `string` | n/a | yes |
+| database | Database name | `string` | n/a | yes |
+| host | User Host | `string` | `"%"` | no |
+| password | Password if not generated | `string` | `null` | no |
+| privileges | List of privileges | `list(any)` | <pre>[<br>  "ALL"<br>]</pre> | no |
+| user | User name | `string` | n/a | yes |
+| user\_suffix\_enabled | Append `_user` suffix | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| password | Mysql database password |
-| user | Mysql database user |
+| password | Password |
+| user | User |
 <!-- END_TF_DOCS -->

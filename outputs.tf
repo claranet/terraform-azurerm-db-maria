@@ -10,6 +10,11 @@ output "mariadb_administrator_password" {
   sensitive   = true
 }
 
+output "mariadb_databases" {
+  value       = azurerm_mariadb_database.mariadb_db
+  description = "Map of databases infos"
+}
+
 output "mariadb_databases_names" {
   value       = var.databases_names
   description = "List of databases names"
@@ -40,17 +45,16 @@ output "mariadb_vnet_rules" {
   description = "The map of all vnet rules"
 }
 
-
 output "mariadb_databases_users" {
-  value       = toset([for u in module.users : u.user])
-  description = "List of per database user"
+  value       = var.create_databases_users ? toset([for u in module.users : u.user]) : []
+  description = "List of DB users"
 }
 
 output "mariadb_databases_user_passwords" {
-  value = tomap({
+  value = var.create_databases_users ? tomap({
     for k, u in module.users : u.user => u.password
-  })
-  description = "Map of per database users and passwords"
+  }) : {}
+  description = "The map of all users/password"
   sensitive   = true
 }
 
