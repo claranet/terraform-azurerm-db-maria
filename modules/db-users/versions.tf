@@ -5,5 +5,9 @@ terraform {
       source  = "terraform-providers/mysql"
       version = ">= 1.9"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 1.9"
+    }
   }
 }

@@ -51,12 +51,6 @@ variable "authorized_cidrs" {
   type        = map(string)
 }
 
-variable "extra_tags" {
-  description = "Extra tags to add"
-  type        = map(string)
-  default     = {}
-}
-
 variable "tier" {
   description = "Tier for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: GeneralPurpose, Basic, MemoryOptimized"
   type        = string
@@ -111,11 +105,6 @@ variable "force_ssl" {
   default     = true
 }
 
-variable "databases_names" {
-  description = "List of databases names"
-  type        = list(string)
-}
-
 variable "databases_charset" {
   description = "Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
   type        = map(string)
@@ -126,36 +115,6 @@ variable "databases_collation" {
   description = "Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
   type        = map(string)
   default     = {}
-}
-
-variable "enable_logs_to_storage" {
-  description = "Boolean flag to specify whether the logs should be sent to the Storage Account"
-  type        = bool
-  default     = false
-}
-
-variable "enable_logs_to_log_analytics" {
-  description = "Boolean flag to specify whether the logs should be sent to Log Analytics"
-  type        = bool
-  default     = false
-}
-
-variable "logs_storage_retention" {
-  description = "Retention in days for logs on Storage Account"
-  type        = number
-  default     = 30
-}
-
-variable "logs_storage_account_id" {
-  description = "Storage Account id for logs"
-  type        = string
-  default     = ""
-}
-
-variable "logs_log_analytics_workspace_id" {
-  description = "Log Analytics Workspace id for logs"
-  type        = string
-  default     = ""
 }
 
 variable "create_databases_users" {

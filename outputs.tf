@@ -42,13 +42,16 @@ output "mariadb_vnet_rules" {
 
 
 output "mariadb_databases_users" {
-  value = toset([for u in module.users : u.user])
+  value       = toset([for u in module.users : u.user])
+  description = "List of per database user"
 }
 
 output "mariadb_databases_user_passwords" {
   value = tomap({
     for k, u in module.users : u.user => u.password
   })
+  description = "Map of per database users and passwords"
+  sensitive   = true
 }
 
 output "mariadb_configurations" {
