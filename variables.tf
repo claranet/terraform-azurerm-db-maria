@@ -31,11 +31,19 @@ variable "location_short" {
 variable "administrator_login" {
   description = "MariaDB administrator login"
   type        = string
+  default     = "dbadmin"
 }
 
 variable "administrator_password" {
-  description = "MariaDB administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
+  description = "MariaDB administrator password. Auto-generated if empty. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
   type        = string
+  default     = ""
+}
+
+variable "vnet_rules" {
+  description = "Map of vnet rules to create"
+  type        = map(string)
+  default     = {}
 }
 
 variable "authorized_cidrs" {
@@ -79,6 +87,12 @@ variable "geo_redundant_backup_enabled" {
   default     = true
 }
 
+variable "mariadb_configurations" {
+  description = "MariaDB configurations to enable"
+  type        = map(string)
+  default     = {}
+}
+
 variable "mariadb_version" {
   description = "Specifies the version of MariaDB to use. Possible values are 10.2 and 10.3"
   type        = string
@@ -103,14 +117,14 @@ variable "databases_collation" {
   default     = {}
 }
 
-variable "vnet_rules" {
-  description = "Map of vnet rules to create"
-  type        = map(string)
-  default     = {}
+variable "create_databases_users" {
+  description = "True to create a user named <db>(_user) per database with generated password."
+  type        = bool
+  default     = true
 }
 
-variable "mariadb_configurations" {
-  description = "MariaDB configurations to enable"
-  type        = map(string)
-  default     = {}
+variable "user_suffix_enabled" {
+  description = "True to append a _user suffix to database users"
+  type        = bool
+  default     = false
 }

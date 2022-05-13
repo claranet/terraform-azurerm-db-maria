@@ -101,13 +101,15 @@ module "db_maria" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | ~> 2.10 |
+| azurerm | >= 2.42 |
+| random | >= 3.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
+| users | ./modules/db-users | n/a |
 
 ## Resources
 
@@ -120,18 +122,20 @@ module "db_maria" {
 | [azurerm_mariadb_firewall_rule.mariadb_fw_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_firewall_rule) | resource |
 | [azurerm_mariadb_server.mariadb_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_server) | resource |
 | [azurerm_mariadb_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_virtual_network_rule) | resource |
+| [random_password.mariadb_administrator_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| administrator\_login | MariaDB administrator login | `string` | n/a | yes |
-| administrator\_password | MariaDB administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | n/a | yes |
+| administrator\_login | MariaDB administrator login | `string` | `"dbadmin"` | no |
+| administrator\_password | MariaDB administrator password. Auto-generated if empty. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | `""` | no |
 | authorized\_cidrs | Map of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | `map(string)` | n/a | yes |
 | auto\_grow\_enabled | Enable/Disable auto-growing of the storage. | `bool` | `false` | no |
 | backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
 | client\_name | Name of client | `string` | n/a | yes |
+| create\_databases\_users | True to create a user named <db>(\_user) per database with generated password. | `bool` | `true` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
@@ -158,6 +162,7 @@ module "db_maria" {
 | tier | Tier for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: GeneralPurpose, Basic, MemoryOptimized | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_caf\_naming\_for\_databases | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
+| user\_suffix\_enabled | True to append a \_user suffix to database users | `bool` | `false` | no |
 | vnet\_rules | Map of vnet rules to create | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -165,9 +170,13 @@ module "db_maria" {
 | Name | Description |
 |------|-------------|
 | mariadb\_administrator\_login | Administrator login for mariadb server |
+| mariadb\_administrator\_password | Administrator password for mariadb server |
 | mariadb\_configurations | The map of all mariadb configurations set |
-| mariadb\_database\_ids | The map of all database resource ids |
-| mariadb\_databases\_names | Map of databases names |
+| mariadb\_database\_ids | List of all database resource ids |
+| mariadb\_databases | Map of databases infos |
+| mariadb\_databases\_names | List of databases names |
+| mariadb\_databases\_user\_passwords | The map of all users/password |
+| mariadb\_databases\_users | List of DB users |
 | mariadb\_firewall\_rules | Map of mariadb created rules |
 | mariadb\_fqdn | FQDN of the mariadb server |
 | mariadb\_server\_id | mariadb server ID |
