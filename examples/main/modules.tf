@@ -71,16 +71,20 @@ module "db_maria" {
   }
 }
 
+locals {
+  administrator_login = format("%s@%s", module.db_maria.mariadb_administrator_login, module.db_maria.mariadb_server_name)
+}
+
 provider "mysql" {
   endpoint = format("%s:3306", module.db_maria.mariadb_fqdn)
-  username = module.db_maria.mariadb_administrator_login
+  username = local.administrator_login
   password = module.db_maria.mariadb_administrator_password
 
   tls = true
 }
 
 module "mysql_users" {
-  source = ""
+  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/mysql-users.git?ref=AZ-762_init_mysql_users"
 
   for_each = toset(module.db_maria.mariadb_databases_names)
 
