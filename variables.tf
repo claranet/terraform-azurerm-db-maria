@@ -116,15 +116,3 @@ variable "databases_collation" {
   type        = map(string)
   default     = {}
 }
-
-variable "create_databases_users" {
-  description = "True to create a user named <db>(_user) per database with generated password."
-  type        = bool
-  default     = true
-}
-
-variable "user_suffix_enabled" {
-  description = "True to append a _user suffix to database users"
-  type        = bool
-  default     = false
-}

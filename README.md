@@ -94,6 +94,24 @@ module "db_maria" {
     foo = "bar"
   }
 }
+
+provider "mysql" {
+  endpoint = format("%s:3306", module.db_maria.mariadb_fqdn)
+  username = module.db_maria.mariadb_administrator_login
+  password = module.db_maria.mariadb_administrator_password
+
+  tls = true
+}
+
+module "mysql_users" {
+  source = ""
+
+  for_each = toset(module.db_maria.mariadb_databases_names)
+
+  user_suffix_enabled = true
+  user                = each.key
+  database            = each.key
+}
 ```
 
 ## Providers
@@ -109,7 +127,6 @@ module "db_maria" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
-| users | ./modules/db-users | n/a |
 
 ## Resources
 
@@ -135,7 +152,6 @@ module "db_maria" {
 | backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
 | client\_name | Name of client | `string` | n/a | yes |
-| create\_databases\_users | True to create a user named <db>(\_user) per database with generated password. | `bool` | `true` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
@@ -162,7 +178,6 @@ module "db_maria" {
 | tier | Tier for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: GeneralPurpose, Basic, MemoryOptimized | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_caf\_naming\_for\_databases | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
-| user\_suffix\_enabled | True to append a \_user suffix to database users | `bool` | `false` | no |
 | vnet\_rules | Map of vnet rules to create | `map(string)` | `{}` | no |
 
 ## Outputs

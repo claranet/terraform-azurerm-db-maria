@@ -70,3 +70,21 @@ module "db_maria" {
     foo = "bar"
   }
 }
+
+provider "mysql" {
+  endpoint = format("%s:3306", module.db_maria.mariadb_fqdn)
+  username = module.db_maria.mariadb_administrator_login
+  password = module.db_maria.mariadb_administrator_password
+
+  tls = true
+}
+
+module "mysql_users" {
+  source = ""
+
+  for_each = toset(module.db_maria.mariadb_databases_names)
+
+  user_suffix_enabled = true
+  user                = each.key
+  database            = each.key
+}
