@@ -6,8 +6,8 @@ terraform {
       version = ">= 2.0.0"
     }
     mysql = {
-      source  = "terraform-providers/mysql"
-      version = ">= 1.9"
+      source  = "Paynetworx/mysql"
+      version = ">= 1.12"
     }
   }
 }

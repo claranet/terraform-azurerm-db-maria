@@ -23,7 +23,3 @@ variable "administrator_login" {
   type        = string
 }
 
-variable "administrator_password" {
-  description = "Administrator password for MariaDB server"
-  type        = string
-}

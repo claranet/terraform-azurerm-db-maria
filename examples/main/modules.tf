@@ -43,7 +43,7 @@ module "db_maria" {
   capacity = 4
 
   authorized_cidrs = {
-    rule1 = "10.0.0.0/24",
+    rule1 = "10.0.0.0/24"
     rule2 = "12.34.56.78/32"
   }
 
@@ -52,8 +52,8 @@ module "db_maria" {
   geo_redundant_backup_enabled = true
   auto_grow_enabled            = false
 
-  administrator_login    = var.administrator_login
-  administrator_password = var.administrator_password
+  administrator_login = var.administrator_login
+  # administrator_password = var.administrator_password
 
   force_ssl = true
 
