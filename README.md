@@ -181,6 +181,7 @@ module "db_maria" {
 | mariadb\_fqdn | FQDN of the mariadb server |
 | mariadb\_server\_id | mariadb server ID |
 | mariadb\_vnet\_rules | The map of all vnet rules |
+| terraform\_module | Informations about this Terraform module |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
