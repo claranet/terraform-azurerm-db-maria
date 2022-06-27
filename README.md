@@ -108,7 +108,8 @@ provider "mysql" {
 }
 
 module "mysql_users" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/mysql-users.git?ref=AZ-762_init_mysql_users"
+  source  = "claranet/users/mysql"
+  version = "x.x.x"
 
   for_each = toset(module.db_maria.mariadb_databases_names)
 
