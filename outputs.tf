@@ -40,22 +40,14 @@ output "mariadb_server_id" {
   description = "mariadb server ID"
 }
 
+output "mariadb_server_name" {
+  value       = azurerm_mariadb_server.mariadb_server.name
+  description = "mariadb server name"
+}
+
 output "mariadb_vnet_rules" {
   value       = azurerm_mariadb_virtual_network_rule.vnet_rules
   description = "The map of all vnet rules"
-}
-
-output "mariadb_databases_users" {
-  value       = var.create_databases_users ? toset([for u in module.users : u.user]) : []
-  description = "List of DB users"
-}
-
-output "mariadb_databases_user_passwords" {
-  value = var.create_databases_users ? tomap({
-    for k, u in module.users : u.user => u.password
-  }) : {}
-  description = "The map of all users/password"
-  sensitive   = true
 }
 
 output "mariadb_configurations" {

@@ -67,7 +67,7 @@ module "db_maria" {
   capacity = 4
 
   authorized_cidrs = {
-    rule1 = "10.0.0.0/24",
+    rule1 = "10.0.0.0/24"
     rule2 = "12.34.56.78/32"
   }
 
@@ -76,8 +76,8 @@ module "db_maria" {
   geo_redundant_backup_enabled = true
   auto_grow_enabled            = false
 
-  administrator_login    = var.administrator_login
-  administrator_password = var.administrator_password
+  administrator_login = var.administrator_login
+  # administrator_password = var.administrator_password
 
   force_ssl = true
 
@@ -94,6 +94,29 @@ module "db_maria" {
     foo = "bar"
   }
 }
+
+locals {
+  administrator_login = format("%s@%s", module.db_maria.mariadb_administrator_login, module.db_maria.mariadb_server_name)
+}
+
+provider "mysql" {
+  endpoint = format("%s:3306", module.db_maria.mariadb_fqdn)
+  username = local.administrator_login
+  password = module.db_maria.mariadb_administrator_password
+
+  tls = true
+}
+
+module "mysql_users" {
+  source  = "claranet/users/mysql"
+  version = "x.x.x"
+
+  for_each = toset(module.db_maria.mariadb_databases_names)
+
+  user_suffix_enabled = true
+  user                = each.key
+  database            = each.key
+}
 ```
 
 ## Providers
@@ -101,7 +124,7 @@ module "db_maria" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.42 |
+| azurerm | ~> 3.0 |
 | random | >= 3.0 |
 
 ## Modules
@@ -109,7 +132,6 @@ module "db_maria" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
-| users | ./modules/db-users | n/a |
 
 ## Resources
 
@@ -135,7 +157,6 @@ module "db_maria" {
 | backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
 | client\_name | Name of client | `string` | n/a | yes |
-| create\_databases\_users | True to create a user named <db>(\_user) per database with generated password. | `bool` | `true` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
@@ -162,7 +183,6 @@ module "db_maria" {
 | tier | Tier for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: GeneralPurpose, Basic, MemoryOptimized | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_caf\_naming\_for\_databases | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
-| user\_suffix\_enabled | True to append a \_user suffix to database users | `bool` | `false` | no |
 | vnet\_rules | Map of vnet rules to create | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -175,11 +195,10 @@ module "db_maria" {
 | mariadb\_database\_ids | List of all database resource ids |
 | mariadb\_databases | Map of databases infos |
 | mariadb\_databases\_names | List of databases names |
-| mariadb\_databases\_user\_passwords | The map of all users/password |
-| mariadb\_databases\_users | List of DB users |
 | mariadb\_firewall\_rules | Map of mariadb created rules |
 | mariadb\_fqdn | FQDN of the mariadb server |
 | mariadb\_server\_id | mariadb server ID |
+| mariadb\_server\_name | mariadb server name |
 | mariadb\_vnet\_rules | The map of all vnet rules |
 | terraform\_module | Information about this Terraform module |
 <!-- END_TF_DOCS -->

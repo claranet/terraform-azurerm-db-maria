@@ -43,7 +43,7 @@ module "db_maria" {
   capacity = 4
 
   authorized_cidrs = {
-    rule1 = "10.0.0.0/24",
+    rule1 = "10.0.0.0/24"
     rule2 = "12.34.56.78/32"
   }
 
@@ -52,8 +52,8 @@ module "db_maria" {
   geo_redundant_backup_enabled = true
   auto_grow_enabled            = false
 
-  administrator_login    = var.administrator_login
-  administrator_password = var.administrator_password
+  administrator_login = var.administrator_login
+  # administrator_password = var.administrator_password
 
   force_ssl = true
 
@@ -69,4 +69,27 @@ module "db_maria" {
   extra_tags = {
     foo = "bar"
   }
+}
+
+locals {
+  administrator_login = format("%s@%s", module.db_maria.mariadb_administrator_login, module.db_maria.mariadb_server_name)
+}
+
+provider "mysql" {
+  endpoint = format("%s:3306", module.db_maria.mariadb_fqdn)
+  username = local.administrator_login
+  password = module.db_maria.mariadb_administrator_password
+
+  tls = true
+}
+
+module "mysql_users" {
+  source  = "claranet/users/mysql"
+  version = "x.x.x"
+
+  for_each = toset(module.db_maria.mariadb_databases_names)
+
+  user_suffix_enabled = true
+  user                = each.key
+  database            = each.key
 }
