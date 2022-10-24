@@ -151,40 +151,40 @@ module "mysql_users" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| administrator\_login | MariaDB administrator login | `string` | `"dbadmin"` | no |
-| administrator\_password | MariaDB administrator password. Auto-generated if empty. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | `""` | no |
-| authorized\_cidrs | Map of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | `map(string)` | n/a | yes |
+| administrator\_login | MariaDB administrator login. | `string` | `"dbadmin"` | no |
+| administrator\_password | MariaDB administrator password. Auto-generated if empty. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | `""` | no |
+| authorized\_cidrs | Map of authorized CIDRs (keys are rule names). | `map(string)` | `{}` | no |
 | auto\_grow\_enabled | Enable/Disable auto-growing of the storage. | `bool` | `false` | no |
 | backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
-| capacity | Capacity for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
-| client\_name | Name of client | `string` | n/a | yes |
+| capacity | Capacity for MariaDB server SKU: https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name | `number` | `4` | no |
+| client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
-| databases\_charset | Specifies the Charset for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
-| databases\_collation | Specifies the Collation for each MariaDB Database : https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
+| databases\_charset | Specifies the Charset for each MariaDB Database: https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
+| databases\_collation | Specifies the Collation for each MariaDB Database: https://mariadb.com/kb/en/library/setting-character-sets-and-collations/ | `map(string)` | `{}` | no |
 | databases\_names | List of databases names | `list(string)` | n/a | yes |
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
-| environment | Name of application's environnement | `string` | n/a | yes |
+| environment | Project/Application environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
-| force\_ssl | Force usage of SSL | `bool` | `true` | no |
+| force\_ssl | Specifies if SSL should be enforced on connections. | `bool` | `true` | no |
 | geo\_redundant\_backup\_enabled | Turn Geo-redundant server backups on/off. Not available for the Basic tier. | `bool` | `true` | no |
-| location | Azure location for Key Vault. | `string` | n/a | yes |
+| location | Azure region to use. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
-| mariadb\_configurations | MariaDB configurations to enable | `map(string)` | `{}` | no |
-| mariadb\_version | Specifies the version of MariaDB to use. Possible values are 10.2 and 10.3 | `string` | `"10.2"` | no |
+| mariadb\_configurations | MariaDB configurations to enable. | `map(string)` | `{}` | no |
+| mariadb\_version | Specifies the version of MariaDB to use. Possible values are `10.2` and `10.3` | `string` | `"10.2"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
-| resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
-| stack | Name of application stack | `string` | n/a | yes |
+| resource\_group\_name | Name of the application ressource group. | `string` | n/a | yes |
+| stack | Project/Application stack name. | `string` | n/a | yes |
 | storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |
-| tier | Tier for MariaDB server sku : https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: GeneralPurpose, Basic, MemoryOptimized | `string` | `"GeneralPurpose"` | no |
+| tier | Tier for MariaDB server SKU: https://www.terraform.io/docs/providers/azurerm/r/mariadb_server.html#sku_name Possible values are: `GeneralPurpose`, `Basic`, `MemoryOptimized` | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_caf\_naming\_for\_databases | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
-| vnet\_rules | Map of vnet rules to create | `map(string)` | `{}` | no |
+| vnet\_rules | Map of VNet rules to create (keys are rule names, values are Subnet IDs). | `map(string)` | `{}` | no |
 
 ## Outputs
 

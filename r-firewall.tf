@@ -1,5 +1,5 @@
 resource "azurerm_mariadb_firewall_rule" "mariadb_fw_rule" {
-  for_each = var.authorized_cidrs
+  for_each = var.authorized_cidrs == null ? {} : var.authorized_cidrs
   name     = each.key
 
   server_name         = azurerm_mariadb_server.mariadb_server.name

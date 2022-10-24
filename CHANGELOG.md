@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-883: Fix variables descriptions, cleanup for latest `terraform-linters` rules
+
 # v6.0.0 - 2022-07-01
 
 Breaking

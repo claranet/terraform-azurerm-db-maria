@@ -21,12 +21,10 @@ databases_charset = {
 }
 
 authorized_cidrs = {
-  rule_name        = "claranet_vpn"
-  start-ip-address = "185.88.104.18"
-  end-ip-address   = "185.88.104.18"
+  claranet = "185.88.104.0/22"
+  flare    = "1.1.1.1/32"
 }
 
 vnet_rule = {
   "claranet_vpn" = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mygroup1/providers/Microsoft.Network/virtualNetworks/myvnet1/subnets/mysubnet1"
 }
-
