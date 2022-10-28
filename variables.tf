@@ -112,13 +112,13 @@ variable "force_ssl" {
 }
 
 variable "databases_charset" {
-  description = "Specifies the Charset for each MariaDB Database: https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
+  description = "Specifies the charset for each MariaDB Database: https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
   type        = map(string)
   default     = {}
 }
 
 variable "databases_collation" {
-  description = "Specifies the Collation for each MariaDB Database: https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
+  description = "Specifies the collation for each MariaDB Database: https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
   type        = map(string)
   default     = {}
 }
