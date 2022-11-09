@@ -93,6 +93,12 @@ variable "geo_redundant_backup_enabled" {
   default     = true
 }
 
+variable "public_network_access_enabled" {
+  description = "True to make MariaDB server visible to the public network"
+  type        = bool
+  default     = false
+}
+
 variable "mariadb_configurations" {
   description = "MariaDB configurations to enable."
   type        = map(string)
