@@ -10,10 +10,11 @@ resource "azurerm_mariadb_server" "mariadb_server" {
   storage_mb                   = var.storage_mb
   auto_grow_enabled            = var.auto_grow_enabled
 
-  administrator_login          = var.administrator_login
-  administrator_login_password = local.administrator_password
-  version                      = var.mariadb_version
-  ssl_enforcement_enabled      = var.force_ssl
+  administrator_login           = var.administrator_login
+  administrator_login_password  = local.administrator_password
+  version                       = var.mariadb_version
+  ssl_enforcement_enabled       = var.force_ssl
+  public_network_access_enabled = var.public_network_access_enabled
 
   tags = merge(local.default_tags, var.extra_tags)
 }
