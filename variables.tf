@@ -94,7 +94,7 @@ variable "geo_redundant_backup_enabled" {
 }
 
 variable "public_network_access_enabled" {
-  description = "True to make MariaDB server visible to the public network"
+  description = "Enable public network access for this MariaDB server."
   type        = bool
   default     = false
 }

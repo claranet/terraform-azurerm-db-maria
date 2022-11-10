@@ -178,7 +178,7 @@ module "mysql_users" {
 | mariadb\_version | Specifies the version of MariaDB to use. Possible values are `10.2` and `10.3` | `string` | `"10.2"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
-| public\_network\_access\_enabled | True to make MariaDB server visible to the public network | `bool` | `false` | no |
+| public\_network\_access\_enabled | Enable public network access for this MariaDB server. | `bool` | `false` | no |
 | resource\_group\_name | Name of the application ressource group. | `string` | n/a | yes |
 | stack | Project/Application stack name. | `string` | n/a | yes |
 | storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |
