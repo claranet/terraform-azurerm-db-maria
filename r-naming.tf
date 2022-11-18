@@ -1,4 +1,4 @@
-resource "azurecaf_name" "mariadb" {
+data "azurecaf_name" "mariadb" {
   name          = var.stack
   resource_type = "azurerm_mariadb_server"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]
@@ -8,7 +8,7 @@ resource "azurecaf_name" "mariadb" {
   separator     = "-"
 }
 
-resource "azurecaf_name" "mariadb_dbs" {
+data "azurecaf_name" "mariadb_dbs" {
   for_each = toset(var.databases_names)
 
   name          = var.stack
