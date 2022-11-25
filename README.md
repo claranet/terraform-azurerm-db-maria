@@ -124,28 +124,28 @@ module "mysql_users" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.1 |
-| azurerm | ~> 3.0 |
+| azurecaf | ~> 1.2, >= 1.2.22 |
+| azurerm | ~> 3.22 |
 | random | >= 3.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | 6.2.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [azurecaf_name.mariadb](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
-| [azurecaf_name.mariadb_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_mariadb_configuration.mariadb_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_configuration) | resource |
 | [azurerm_mariadb_database.mariadb_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_database) | resource |
 | [azurerm_mariadb_firewall_rule.mariadb_fw_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_firewall_rule) | resource |
 | [azurerm_mariadb_server.mariadb_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_server) | resource |
 | [azurerm_mariadb_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_virtual_network_rule) | resource |
 | [random_password.mariadb_administrator_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
+| [azurecaf_name.mariadb](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
+| [azurecaf_name.mariadb_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
 
@@ -171,9 +171,9 @@ module "mysql_users" {
 | location | Azure region to use. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
-| logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br>If you want to specify an Azure EventHub to send logs and metrics to, you need to provide a formated string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
-| logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
+| logs\_retention\_days | Number of days to keep logs on storage account. | `number` | `30` | no |
 | mariadb\_configurations | MariaDB configurations to enable. | `map(string)` | `{}` | no |
 | mariadb\_version | Specifies the version of MariaDB to use. Possible values are `10.2` and `10.3` | `string` | `"10.2"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
