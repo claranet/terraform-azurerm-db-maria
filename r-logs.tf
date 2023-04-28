@@ -1,6 +1,6 @@
 module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "6.2.0"
+  version = "~> 6.4.1"
 
   resource_id = azurerm_mariadb_server.mariadb_server.id
 
