@@ -1,3 +1,28 @@
+## 6.2.1 (2024-04-26)
+
+
+### Styles
+
+* **output:** remove unused version from outputs-module a08e8a4
+
+
+### Continuous Integration
+
+* **AZ-1391:** enable semantic-release [skip ci] 3ea133b
+* **AZ-1391:** update semantic-release config [skip ci] 3e84fa0
+
+
+### Miscellaneous Chores
+
+* **deps:** add renovate.json 99d8417
+* **deps:** enable automerge on renovate 1f5edd9
+* **deps:** update dependency trivy to v0.50.2 0eb74c3
+* **deps:** update dependency trivy to v0.50.4 524ea31
+* **deps:** update renovate.json 750e4ea
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to ~> 6.5.0 a11f9cf
+* **pre-commit:** update commitlint hook 2705ed3
+* **release:** remove legacy `VERSION` file 9eada1a
+
 # v6.2.0 - 2022-11-25
 
 Changed
