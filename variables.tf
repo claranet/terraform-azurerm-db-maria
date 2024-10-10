@@ -117,6 +117,12 @@ variable "force_ssl" {
   default     = true
 }
 
+variable "force_min_tls" {
+  description = "Specifies which minimal SSL version should be enforced on connections."
+  type        = string
+  default     = "TLS1_2"
+}
+
 variable "databases_charset" {
   description = "Specifies the charset for each MariaDB Database: https://mariadb.com/kb/en/library/setting-character-sets-and-collations/"
   type        = map(string)
