@@ -1,3 +1,29 @@
+## 7.0.0 (2024-10-11)
+
+### ⚠ BREAKING CHANGES
+
+* **AZ-840:** AzureRM provider v3+ required
+
+### Features
+
+* **AZ-1473:** set default ssl_min_version depending on ssl activation df2f82f
+* **AZ-840:** prepare `v7.0` c0ded42
+
+### Documentation
+
+* update README, this module is deprecated c780018
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.3 1246e79
+* **deps:** update dependency pre-commit to v4 3f5ae22
+* **deps:** update dependency pre-commit to v4.0.1 a64bf1e
+* **deps:** update dependency trivy to v0.56.1 7a7593a
+* **deps:** update dependency trivy to v0.56.2 3d15d68
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v5 fb15982
+* prepare for new examples structure f1d838c
+* update examples structure 61ab35b
+
 ## 6.3.0 (2024-10-03)
 
 ### Features
