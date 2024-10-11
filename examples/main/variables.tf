@@ -22,4 +22,3 @@ variable "administrator_login" {
   description = "Administrator login for MariaDB server"
   type        = string
 }
-
