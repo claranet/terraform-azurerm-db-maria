@@ -3,6 +3,8 @@
 
 This module creates a [MariaDB Server](https://docs.microsoft.com/en-us/azure/mariadb/) with one or several databases.
 
+> ⚠ This module is deprecated, as [Microsoft will withdraw this resource in 2025](https://azure.microsoft.com/en-us/updates/azure-database-for-mariadb-will-be-retired-on-19-september-2025-migrate-to-azure-database-for-mysql-flexible-server/). Please consider moving to our [Azure MySQL Flexible module](https://github.com/claranet/terraform-azurerm-db-mysql-flexible).
+
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
 
