@@ -138,7 +138,7 @@ module "mysql_users" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.39 |
+| azurerm | >= 3.47 |
 | random | ~> 3.0 |
 
 ## Modules
@@ -179,7 +179,7 @@ module "mysql_users" {
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
 | environment | Project/Application environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
-| force\_min\_tls | Specifies which minimal SSL version should be enforced on connections. | `string` | `"TLS1_2"` | no |
+| force\_min\_tls\_version | Specifies which minimal SSL version should be enforced on connections. | `string` | `"TLS1_2"` | no |
 | force\_ssl | Specifies if SSL should be enforced on connections. | `bool` | `true` | no |
 | geo\_redundant\_backup\_enabled | Turn Geo-redundant server backups on/off. Not available for the Basic tier. | `bool` | `true` | no |
 | location | Azure region to use. | `string` | n/a | yes |

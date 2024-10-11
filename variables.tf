@@ -117,7 +117,7 @@ variable "force_ssl" {
   default     = true
 }
 
-variable "force_min_tls" {
+variable "force_min_tls_version" {
   description = "Specifies which minimal SSL version should be enforced on connections."
   type        = string
   default     = "TLS1_2"

@@ -14,7 +14,7 @@ resource "azurerm_mariadb_server" "mariadb_server" {
   administrator_login_password     = local.administrator_password
   version                          = var.mariadb_version
   ssl_enforcement_enabled          = var.force_ssl
-  ssl_minimal_tls_version_enforced = var.force_ssl ? var.force_min_tls : "TLSEnforcementDisabled"
+  ssl_minimal_tls_version_enforced = var.force_ssl ? var.force_min_tls_version : "TLSEnforcementDisabled"
   public_network_access_enabled    = var.public_network_access_enabled
 
   tags = merge(local.default_tags, var.extra_tags)
