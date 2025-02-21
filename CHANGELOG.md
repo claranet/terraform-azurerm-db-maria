@@ -1,3 +1,32 @@
+## 7.0.1 (2025-02-21)
+
+### Documentation
+
+* update example 9411e17
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.4 774337b
+* **deps:** update dependency opentofu to v1.8.6 26cb3af
+* **deps:** update dependency opentofu to v1.8.8 eaa91a6
+* **deps:** update dependency opentofu to v1.9.0 b81b990
+* **deps:** update dependency pre-commit to v4.1.0 1477e03
+* **deps:** update dependency tflint to v0.54.0 7e15d68
+* **deps:** update dependency tflint to v0.55.0 aa11351
+* **deps:** update dependency trivy to v0.57.1 84cc7f9
+* **deps:** update dependency trivy to v0.58.1 5b5a2af
+* **deps:** update dependency trivy to v0.58.2 c2c92b6
+* **deps:** update dependency trivy to v0.59.1 14cbaae
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 a29a6fa
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 99d502c
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 2ef083d
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.1.0 57d1a28
+* **deps:** update tools 5eaa6a1
+* **deps:** update tools 7aed563
+* **deps:** update tools baee783
+* update Github templates 7ad4ca1
+* update tflint config for v0.55.0 f492c08
+
 ## 7.0.0 (2024-10-11)
 
 ### ⚠ BREAKING CHANGES
